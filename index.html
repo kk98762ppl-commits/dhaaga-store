@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Dhaaga — Kapde jo kahani sunate hain</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<style>
+  :root {
+    --ivory: #F4EFE6;
+    --ivory-2: #ECE4D4;
+    --ink: #211D19;
+    --ink-soft: #4A443C;
+    --teal: #1E4A46;
+    --teal-light: #2E6A64;
+    --gold: #C68A32;
+    --rose: #C9A29C;
+    --line: rgba(33,29,25,0.14);
+    --bg: var(--ivory);
+    --surface: #FFFFFF;
+    --text: var(--ink);
+    --text-soft: var(--ink-soft);
+    --radius: 3px;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  *, *::before, *::after { box-sizing: inherit; }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); scroll-behavior: smooth; }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #171512;
+      --surface: #211D19;
+      --text: #F4EFE6;
+      --text-soft: #C9C2B4;
+      --line: rgba(244,239,230,0.14);
+      --teal-light: #3C837A;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #171512;
+    --surface: #211D19;
+    --text: #F4EFE6;
+    --text-soft: #C9C2B4;
+    --line: rgba(244,239,230,0.14);
+    --teal-light: #3C837A;
+  }
+
+  html, body { height: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Work Sans', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, .display {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin: 0;
+  }
+  a { color: inherit; }
+  img { max-width: 100%; }
+  button { font-family: inherit; cursor: pointer; }
+
+  .wrap {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* Header */
+  header {
+    position: sticky;
+    top: 0;
+    padding-top: env(safe-area-inset-top, 0px);
+    background: var(--bg);
+    border-bottom: 1px solid var(--line);
+    z-index: 50;
+  }
+  .headbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 24px;
+    max-width: 1180px;
+    margin: 0 auto;
+  }
+  .logo {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 600;
+    font-size: 1.5rem;
+    letter-spacing: -0.01em;
+  }
+  nav.links { display: flex; gap: 28px; }
+  nav.links a {
+    text-decoration: none;
+    font-size: 0.92rem;
+    color: var(--text-soft);
+    border-bottom: 1px solid transparent;
+    padding-bottom: 2px;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  nav.links a:hover { color: var(--text); border-color: var(--gold); }
+  @media (max-width: 720px) { nav.links { display: none; } }
+
+  .cart-btn {
+    position: relative;
+    background: none;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 9px 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text);
+    font-size: 0.9rem;
+  }
+  .cart-badge {
+    background: var(--gold);
+    color: #211D19;
+    font-size: 0.72rem;
+    font-weight: 700;
+    border-radius: 50%;
+    min-width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 4px;
+  }
+
+  /* Hero */
+  .hero {
+    padding: 64px 24px 48px;
+    max-width: 1180px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 40px;
+    align-items: center;
+  }
+  @media (max-width: 860px) {
+    .hero { grid-template-columns: 1fr; padding-top: 40px; }
+  }
+  .hero h1 {
+    font-size: clamp(2.4rem, 5vw, 3.6rem);
+    line-height: 1.08;
+  }
+  .hero p.sub {
+    margin-top: 20px;
+    max-width: 46ch;
+    color: var(--text-soft);
+    font-size: 1.05rem;
+    line-height: 1.6;
+  }
+  .hero .cta-row { margin-top: 30px; display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--teal);
+    color: #F4EFE6;
+    border: none;
+    padding: 13px 26px;
+    border-radius: var(--radius);
+    font-size: 0.95rem;
+    font-weight: 600;
+    transition: background 0.2s;
+  }
+  .btn-primary:hover { background: var(--teal-light); }
+  .btn-ghost {
+    background: none;
+    border: 1px solid var(--line);
+    color: var(--text);
+    padding: 13px 26px;
+    border-radius: var(--radius);
+    font-size: 0.95rem;
+  }
+
+  .hero-art {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    min-height: 280px;
+  }
+  .hero-art svg { width: 100%; height: auto; max-width: 380px; }
+
+  /* Category chips */
+  .cats {
+    display: flex;
+    gap: 10px;
+    padding: 4px 24px 28px;
+    max-width: 1180px;
+    margin: 0 auto;
+    overflow-x: auto;
+  }
+  .chip {
+    flex: 0 0 auto;
+    padding: 8px 18px;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: var(--surface);
+    font-size: 0.85rem;
+    color: var(--text-soft);
+    white-space: nowrap;
+    transition: all 0.15s;
+  }
+  .chip.active {
+    background: var(--ink);
+    color: var(--ivory);
+    border-color: var(--ink);
+  }
+  :root[data-theme="dark"] .chip.active,
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .chip.active { background: var(--gold); color: #211D19; border-color: var(--gold); } }
+
+  /* Product grid */
+  section#shop { padding: 8px 24px 80px; max-width: 1180px; margin: 0 auto; }
+  .section-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 24px;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 14px;
+  }
+  .section-head h2 { font-size: 1.5rem; }
+  .section-head span { color: var(--text-soft); font-size: 0.85rem; }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+  }
+  @media (max-width: 860px) { .grid { grid-template-columns: repeat(2, 1fr); gap: 16px; } }
+  @media (max-width: 480px) { .grid { grid-template-columns: 1fr 1fr; gap: 12px; } }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .card-art {
+    aspect-ratio: 1 / 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--ivory-2);
+  }
+  :root[data-theme="dark"] .card-art,
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .card-art { background: #2A2521; } }
+  .card-art svg { width: 58%; height: 58%; }
+  .card-body { padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
+  .card-cat { font-size: 0.72rem; color: var(--gold); text-transform: lowercase; }
+  .card-name { font-size: 1rem; font-weight: 600; font-family: 'Work Sans', sans-serif; }
+  .card-price { color: var(--text-soft); font-size: 0.92rem; margin-top: auto; padding-top: 6px; }
+  .card-add {
+    margin-top: 10px;
+    background: var(--ink);
+    color: var(--ivory);
+    border: none;
+    padding: 10px;
+    border-radius: var(--radius);
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: background 0.2s;
+  }
+  .card-add:hover { background: var(--teal); }
+  :root[data-theme="dark"] .card-add { background: var(--gold); color: #211D19; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .card-add { background: var(--gold); color: #211D19; } }
+
+  /* Cart drawer */
+  .overlay {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.4);
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.25s;
+    z-index: 90;
+  }
+  .overlay.open { opacity: 1; pointer-events: auto; }
+
+  .drawer {
+    position: fixed;
+    top: 0; right: 0;
+    height: 100%;
+    width: min(400px, 92vw);
+    background: var(--surface);
+    box-shadow: -8px 0 30px rgba(0,0,0,0.15);
+    transform: translateX(100%);
+    transition: transform 0.28s ease;
+    z-index: 95;
+    display: flex;
+    flex-direction: column;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  .drawer.open { transform: translateX(0); }
+  .drawer-head {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 20px 22px;
+    border-bottom: 1px solid var(--line);
+  }
+  .drawer-head h3 { font-size: 1.2rem; }
+  .drawer-close { background: none; border: none; font-size: 1.3rem; color: var(--text); padding: 4px; }
+  .drawer-items { flex: 1; overflow-y: auto; padding: 12px 22px; }
+  .drawer-empty { color: var(--text-soft); text-align: center; padding: 60px 20px; font-size: 0.92rem; }
+
+  .cart-row { display: flex; gap: 12px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+  .cart-row .thumb {
+    width: 56px; height: 56px; border-radius: var(--radius);
+    background: var(--ivory-2); display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  :root[data-theme="dark"] .cart-row .thumb,
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .cart-row .thumb { background: #2A2521; } }
+  .cart-row .thumb svg { width: 60%; height: 60%; }
+  .cart-row .info { flex: 1; min-width: 0; }
+  .cart-row .info .name { font-size: 0.9rem; font-weight: 600; }
+  .cart-row .info .meta { font-size: 0.8rem; color: var(--text-soft); margin-top: 2px; }
+  .qty-row { display: flex; align-items: center; gap: 10px; margin-top: 8px; }
+  .qty-btn {
+    width: 24px; height: 24px; border-radius: 50%;
+    border: 1px solid var(--line); background: none; color: var(--text);
+    display: flex; align-items: center; justify-content: center; font-size: 0.9rem; line-height: 1;
+  }
+  .qty-val { font-size: 0.88rem; min-width: 16px; text-align: center; }
+  .remove-btn { background: none; border: none; color: var(--text-soft); font-size: 0.78rem; text-decoration: underline; margin-left: auto; padding: 0; }
+
+  .drawer-foot { padding: 18px 22px; border-top: 1px solid var(--line); }
+  .subtotal-row { display: flex; justify-content: space-between; font-size: 0.95rem; margin-bottom: 14px; }
+  .subtotal-row strong { font-family: 'Fraunces', serif; font-size: 1.15rem; }
+  .checkout-btn {
+    width: 100%;
+    background: #1E4A46;
+    color: #F4EFE6;
+    border: none;
+    padding: 14px;
+    border-radius: var(--radius);
+    font-size: 0.95rem;
+    font-weight: 600;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+  }
+  .checkout-note { font-size: 0.75rem; color: var(--text-soft); margin-top: 10px; text-align: center; }
+
+  /* Checkout form view */
+  .form-field { margin-bottom: 14px; }
+  .form-field label { display: block; font-size: 0.8rem; color: var(--text-soft); margin-bottom: 6px; }
+  .form-field input, .form-field textarea {
+    width: 100%;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 10px 12px;
+    font-size: 0.92rem;
+    font-family: inherit;
+    background: var(--bg);
+    color: var(--text);
+  }
+  .form-field textarea { resize: vertical; min-height: 60px; }
+  .pay-options { display: flex; flex-direction: column; gap: 10px; margin-bottom: 6px; }
+  .pay-option {
+    display: flex; align-items: flex-start; gap: 10px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 12px;
+    cursor: pointer;
+  }
+  .pay-option.selected { border-color: var(--teal); background: rgba(30,74,70,0.06); }
+  :root[data-theme="dark"] .pay-option.selected,
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .pay-option.selected { background: rgba(60,131,122,0.14); } }
+  .pay-option input { margin-top: 3px; }
+  .pay-option .pt { font-size: 0.9rem; font-weight: 600; }
+  .pay-option .ps { font-size: 0.78rem; color: var(--text-soft); margin-top: 2px; }
+  .back-link { background: none; border: none; color: var(--text-soft); font-size: 0.85rem; padding: 0; margin-bottom: 4px; text-decoration: underline; }
+  .field-error { font-size: 0.78rem; color: #B3432E; margin-top: 4px; display: none; }
+  .confirm-view { text-align: center; padding: 40px 10px; }
+  .confirm-view .check { font-size: 2.4rem; margin-bottom: 12px; }
+  .confirm-view h3 { font-size: 1.2rem; margin-bottom: 8px; }
+  .confirm-view p { color: var(--text-soft); font-size: 0.9rem; line-height: 1.5; }
+
+  footer {
+    border-top: 1px solid var(--line);
+    padding: 40px 24px 48px;
+  }
+  .foot-wrap {
+    max-width: 1180px; margin: 0 auto;
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 24px;
+  }
+  .foot-wrap .brand { max-width: 320px; }
+  .foot-wrap .brand p { color: var(--text-soft); font-size: 0.88rem; margin-top: 10px; line-height: 1.5; }
+  .foot-links { display: flex; gap: 40px; flex-wrap: wrap; }
+  .foot-col h4 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-soft); margin-bottom: 10px; font-family: 'Work Sans', sans-serif; font-weight: 600; }
+  .foot-col a, .foot-col span { display: block; font-size: 0.88rem; margin-bottom: 8px; color: var(--text-soft); text-decoration: none; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="headbar">
+    <div class="logo">Dhaaga</div>
+    <nav class="links">
+      <a href="#shop">Shop</a>
+      <a href="#" onclick="return false;">Collections</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <button class="cart-btn" id="cartOpenBtn" aria-label="Cart">
+      🛍️ Cart <span class="cart-badge" id="cartCount">0</span>
+    </button>
+  </div>
+</header>
+
+<section class="hero">
+  <div>
+    <h1>Kapde, jo tumhari<br>kahani sunate hain.</h1>
+    <p class="sub">Har din ke liye, har mood ke liye — Dhaaga laata hai roz pehnne wale kapdon mein thoda sa khaas. Ethnic ho ya casual, quality kabhi compromise nahi.</p>
+    <div class="cta-row">
+      <button class="btn-primary" onclick="document.getElementById('shop').scrollIntoView()">Shop Karo</button>
+      <a href="#contact" class="btn-ghost" style="text-decoration:none; display:inline-flex; align-items:center;">Hume Follow Karo</a>
+    </div>
+  </div>
+  <div class="hero-art">
+    <svg viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="150" cy="150" r="130" fill="var(--ivory-2)"/>
+      <g transform="translate(60,55)">
+        <path d="M40 10 L70 0 L90 20 L80 35 L70 28 L70 130 L20 130 L20 28 L10 35 L0 20 L20 0 Z" fill="var(--teal)"/>
+      </g>
+      <g transform="translate(150,60)">
+        <path d="M20 0 L60 0 L65 15 L75 20 L75 140 L5 140 L5 20 L15 15 Z" fill="var(--gold)"/>
+      </g>
+      <g transform="translate(110,180)">
+        <rect x="0" y="0" width="80" height="60" rx="4" fill="var(--rose)"/>
+      </g>
+    </svg>
+  </div>
+</section>
+
+<div class="cats" id="cats"></div>
+
+<section id="shop">
+  <div class="section-head">
+    <h2>Naye Collection</h2>
+    <span id="itemCountLabel"></span>
+  </div>
+  <div class="grid" id="productGrid"></div>
+</section>
+
+<footer id="contact">
+  <div class="foot-wrap">
+    <div class="brand">
+      <div class="logo">Dhaaga</div>
+      <p>Ek naya clothing label, jo everyday wear ko thoda zyada khaas banata hai. Order seedha WhatsApp par confirm hota hai.</p>
+    </div>
+    <div class="foot-links">
+      <div class="foot-col">
+        <h4>Follow</h4>
+        <a href="#" onclick="return false;">Instagram</a>
+        <a href="#" onclick="return false;">Facebook</a>
+      </div>
+      <div class="foot-col">
+        <h4>Help</h4>
+        <span>Order Tracking</span>
+        <span>Returns</span>
+        <span>Size Guide</span>
+      </div>
+      <div class="foot-col">
+        <h4>Contact</h4>
+        <span>hello@dhaaga.in</span>
+        <span>+91 90000 00000</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<div class="overlay" id="overlay"></div>
+<aside class="drawer" id="drawer">
+  <div class="drawer-head">
+    <h3>Tumhara Cart</h3>
+    <button class="drawer-close" id="drawerClose">✕</button>
+  </div>
+  <div class="drawer-items" id="drawerItems"></div>
+  <div class="drawer-foot" id="drawerFoot">
+    <div class="subtotal-row">
+      <span>Subtotal</span>
+      <strong id="subtotalVal">₹0</strong>
+    </div>
+    <button class="checkout-btn" id="checkoutBtn">Checkout Karo</button>
+    <p class="checkout-note">Address bharo, phir Cash on Delivery ya UPI se pay karo.</p>
+  </div>
+</aside>
+
+<template id="checkoutFormTpl">
+  <button class="back-link" id="backToCart">← Cart mein wapas jao</button>
+  <div class="form-field">
+    <label>Poora Naam</label>
+    <input type="text" id="custName" placeholder="Jaise: Priya Sharma">
+    <div class="field-error" id="err-custName">Naam zaroori hai</div>
+  </div>
+  <div class="form-field">
+    <label>Phone Number</label>
+    <input type="tel" id="custPhone" placeholder="98XXXXXXXX">
+    <div class="field-error" id="err-custPhone">10-digit valid number daalein</div>
+  </div>
+  <div class="form-field">
+    <label>Delivery Address</label>
+    <textarea id="custAddress" placeholder="House no, street, area, city"></textarea>
+    <div class="field-error" id="err-custAddress">Address zaroori hai</div>
+  </div>
+  <div class="form-field">
+    <label>Pincode</label>
+    <input type="text" id="custPincode" placeholder="e.g. 400001">
+    <div class="field-error" id="err-custPincode">6-digit pincode daalein</div>
+  </div>
+  <div class="form-field">
+    <label style="margin-bottom:10px;">Payment Method</label>
+    <div class="pay-options">
+      <label class="pay-option selected" id="opt-cod">
+        <input type="radio" name="payMethod" value="cod" checked>
+        <div>
+          <div class="pt">Cash on Delivery</div>
+          <div class="ps">Order milne par cash dena</div>
+        </div>
+      </label>
+      <label class="pay-option" id="opt-upi">
+        <input type="radio" name="payMethod" value="upi">
+        <div>
+          <div class="pt">Pay Online (UPI)</div>
+          <div class="ps">GPay / PhonePe / Paytm se abhi pay karo</div>
+        </div>
+      </label>
+      <label class="pay-option" id="opt-razorpay">
+        <input type="radio" name="payMethod" value="razorpay">
+        <div>
+          <div class="pt">Card / Netbanking / UPI (Razorpay)</div>
+          <div class="ps">Secure online payment — sabhi methods ek jagah</div>
+        </div>
+      </label>
+    </div>
+  </div>
+</template>
+
+<template id="confirmTpl">
+  <div class="confirm-view">
+    <div class="check">✅</div>
+    <h3 id="confirmTitle">Order Confirm Ho Gaya!</h3>
+    <p id="confirmMsg">Tumhare order ki details WhatsApp par bhej di gayi hain. Hum jaldi confirm karenge.</p>
+    <button class="btn-primary" style="margin-top:22px;" id="closeConfirmBtn">Theek Hai</button>
+  </div>
+</template>
+
+<script>
+(function(){
+  const WHATSAPP_NUMBER = "919000000000"; // TODO: apna business WhatsApp number yahan daalein (country code ke saath, bina + ya spaces)
+  const UPI_VPA = "dhaaga@upi"; // TODO: apna asli UPI ID (VPA) yahan daalein
+  const UPI_PAYEE_NAME = "Dhaaga";
+
+  function icon(name, color){
+    const icons = {
+      kurta: `<path d="M35 5 L65 5 L72 20 L60 32 L60 95 L40 95 L40 32 L28 20 Z" fill="${color}"/>`,
+      tee: `<path d="M20 15 L40 5 L50 15 L60 5 L80 15 L72 32 L62 27 L62 95 L38 95 L38 27 L28 32 Z" fill="${color}"/>`,
+      denim: `<path d="M30 5 H70 L68 95 H54 L50 45 L46 95 H32 Z" fill="${color}"/>`,
+      dress: `<path d="M38 5 H62 L68 30 L60 95 H40 L32 30 Z" fill="${color}"/>`,
+      jacket: `<path d="M22 12 L42 4 L50 12 L58 4 L78 12 L70 30 L62 26 L62 90 H38 L38 26 L30 30 Z" fill="${color}"/>`,
+      shirt: `<path d="M25 12 L42 4 L50 12 L58 4 L75 12 L66 28 L58 24 L58 90 H42 L42 24 L34 28 Z" fill="${color}"/>`,
+      palazzo: `<path d="M32 5 H68 L70 95 H56 L50 40 L44 95 H30 Z" fill="${color}"/>`,
+      coord: `<circle cx="50" cy="20" r="15" fill="${color}"/><rect x="30" y="38" width="40" height="55" rx="4" fill="${color}"/>`,
+      jacket2: `<path d="M20 15 L40 3 L50 13 L60 3 L80 15 L74 34 L62 28 L62 95 H38 L38 28 L26 34 Z" fill="${color}"/>`
+    };
+    return `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">${icons[name] || icons.tee}</svg>`;
+  }
+
+  const products = [
+    { id: 1, name: "Classic Cotton Kurta", price: 899, cat: "ethnic", icon: icon('kurta', '#1E4A46') },
+    { id: 2, name: "Oversized Tee", price: 599, cat: "casual", icon: icon('tee', '#C68A32') },
+    { id: 3, name: "Wide-Leg Denim", price: 1299, cat: "casual", icon: icon('denim', '#4A443C') },
+    { id: 4, name: "Anarkali Dress", price: 1799, cat: "women", icon: icon('dress', '#C9A29C') },
+    { id: 5, name: "Bomber Jacket", price: 1499, cat: "unisex", icon: icon('jacket', '#1E4A46') },
+    { id: 6, name: "Linen Shirt", price: 999, cat: "men", icon: icon('shirt', '#C68A32') },
+    { id: 7, name: "Palazzo Pants", price: 799, cat: "women", icon: icon('palazzo', '#C9A29C') },
+    { id: 8, name: "Co-ord Set", price: 1599, cat: "women", icon: icon('coord', '#1E4A46') },
+    { id: 9, name: "Denim Jacket", price: 1699, cat: "unisex", icon: icon('jacket2', '#4A443C') },
+  ];
+
+  const categories = [
+    { key: "all", label: "Sabhi" },
+    { key: "men", label: "Men" },
+    { key: "women", label: "Women" },
+    { key: "unisex", label: "Unisex" },
+    { key: "ethnic", label: "Ethnic" },
+    { key: "casual", label: "Casual" },
+  ];
+
+  let activeCat = "all";
+  let cart = {};
+
+  try {
+    const saved = localStorage.getItem('dhaaga_cart');
+    if (saved) cart = JSON.parse(saved);
+  } catch(e) { cart = {}; }
+
+  function saveCart(){
+    try { localStorage.setItem('dhaaga_cart', JSON.stringify(cart)); } catch(e) {}
+  }
+
+  const catsEl = document.getElementById('cats');
+  categories.forEach(c => {
+    const btn = document.createElement('button');
+    btn.className = 'chip' + (c.key === 'all' ? ' active' : '');
+    btn.textContent = c.label;
+    btn.onclick = () => { activeCat = c.key; renderCats(); renderGrid(); };
+    btn.dataset.key = c.key;
+    catsEl.appendChild(btn);
+  });
+  function renderCats(){
+    [...catsEl.children].forEach(b => b.classList.toggle('active', b.dataset.key === activeCat));
+  }
+
+  const grid = document.getElementById('productGrid');
+  const itemCountLabel = document.getElementById('itemCountLabel');
+  function renderGrid(){
+    const list = activeCat === 'all' ? products : products.filter(p => p.cat === activeCat);
+    itemCountLabel.textContent = list.length + " items";
+    grid.innerHTML = list.map(p => `
+      <div class="card">
+        <div class="card-art">${p.icon}</div>
+        <div class="card-body">
+          <span class="card-cat">${p.cat}</span>
+          <span class="card-name">${p.name}</span>
+          <span class="card-price">₹${p.price.toLocaleString('en-IN')}</span>
+          <button class="card-add" onclick="dhaaga.add(${p.id})">Add to Cart</button>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function cartCount(){
+    return Object.values(cart).reduce((s,q) => s+q, 0);
+  }
+  function cartSubtotal(){
+    return Object.entries(cart).reduce((s,[id,q]) => {
+      const p = products.find(x => x.id == id);
+      return s + (p ? p.price*q : 0);
+    }, 0);
+  }
+
+  const drawer = document.getElementById('drawer');
+  const overlay = document.getElementById('overlay');
+  const drawerItems = document.getElementById('drawerItems');
+  const cartCountEl = document.getElementById('cartCount');
+  const subtotalVal = document.getElementById('subtotalVal');
+
+  function renderCart(){
+    cartCountEl.textContent = cartCount();
+    subtotalVal.textContent = "₹" + cartSubtotal().toLocaleString('en-IN');
+    const entries = Object.entries(cart).filter(([,q]) => q > 0);
+    if (entries.length === 0){
+      drawerItems.innerHTML = `<div class="drawer-empty">Cart abhi khaali hai.<br>Kuch pasand aaya? Add to Cart dabao.</div>`;
+      return;
+    }
+    drawerItems.innerHTML = entries.map(([id,q]) => {
+      const p = products.find(x => x.id == id);
+      if (!p) return '';
+      return `
+        <div class="cart-row">
+          <div class="thumb">${p.icon}</div>
+          <div class="info">
+            <div class="name">${p.name}</div>
+            <div class="meta">₹${p.price.toLocaleString('en-IN')}</div>
+            <div class="qty-row">
+              <button class="qty-btn" onclick="dhaaga.dec(${p.id})">−</button>
+              <span class="qty-val">${q}</span>
+              <button class="qty-btn" onclick="dhaaga.add(${p.id})">+</button>
+              <button class="remove-btn" onclick="dhaaga.remove(${p.id})">Remove</button>
+            </div>
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  function openDrawer(){ drawer.classList.add('open'); overlay.classList.add('open'); }
+  function closeDrawer(){ drawer.classList.remove('open'); overlay.classList.remove('open'); showCartView(); }
+
+  document.getElementById('cartOpenBtn').onclick = openDrawer;
+  document.getElementById('drawerClose').onclick = closeDrawer;
+  overlay.onclick = closeDrawer;
+
+  const drawerHead = document.querySelector('.drawer-head h3');
+  const drawerFoot = document.getElementById('drawerFoot');
+  const checkoutFormTpl = document.getElementById('checkoutFormTpl');
+  const confirmTpl = document.getElementById('confirmTpl');
+
+  function showCartView(){
+    drawerHead.textContent = 'Tumhara Cart';
+    drawerFoot.style.display = '';
+    renderCart();
+  }
+
+  function showCheckoutView(){
+    drawerHead.textContent = 'Checkout';
+    drawerItems.innerHTML = '';
+    drawerItems.appendChild(checkoutFormTpl.content.cloneNode(true));
+    drawerFoot.innerHTML = `
+      <div class="subtotal-row"><span>Total</span><strong>₹${cartSubtotal().toLocaleString('en-IN')}</strong></div>
+      <button class="checkout-btn" id="placeOrderBtn">Order Place Karo</button>
+      <p class="checkout-note">Order confirm hote hi WhatsApp par details bhej di jaayengi.</p>
+    `;
+    document.getElementById('backToCart').onclick = showCartView;
+
+    const optCod = document.getElementById('opt-cod');
+    const optUpi = document.getElementById('opt-upi');
+    const optRzp = document.getElementById('opt-razorpay');
+    const allOpts = [optCod, optUpi, optRzp];
+    drawerItems.querySelectorAll('input[name="payMethod"]').forEach(r => {
+      r.onchange = () => allOpts.forEach(o => o.classList.toggle('selected', o.querySelector('input').value === r.value && r.checked));
+    });
+    allOpts.forEach(o => {
+      o.onclick = () => {
+        o.querySelector('input').checked = true;
+        allOpts.forEach(x => x.classList.toggle('selected', x === o));
+      };
+    });
+
+    document.getElementById('placeOrderBtn').onclick = placeOrder;
+  }
+
+  function showConfirmView(paymentMethod){
+    drawerItems.innerHTML = '';
+    drawerItems.appendChild(confirmTpl.content.cloneNode(true));
+    drawerFoot.style.display = 'none';
+    if (paymentMethod === 'upi'){
+      document.getElementById('confirmMsg').textContent = 'UPI app khul gaya hoga payment ke liye. Payment ke baad screenshot WhatsApp par bhej dena — order turant confirm ho jayega.';
+    }
+    document.getElementById('closeConfirmBtn').onclick = function(){
+      cart = {};
+      saveCart();
+      closeDrawer();
+    };
+  }
+
+  function validateField(id, isValid){
+    const errEl = document.getElementById('err-' + id);
+    if (errEl) errEl.style.display = isValid ? 'none' : 'block';
+    return isValid;
+  }
+
+  async function placeOrder(){
+    const name = document.getElementById('custName').value.trim();
+    const phone = document.getElementById('custPhone').value.trim();
+    const address = document.getElementById('custAddress').value.trim();
+    const pincode = document.getElementById('custPincode').value.trim();
+    const payMethod = document.querySelector('input[name="payMethod"]:checked').value;
+
+    const nameOk = validateField('custName', name.length > 1);
+    const phoneOk = validateField('custPhone', /^[6-9]\d{9}$/.test(phone));
+    const addressOk = validateField('custAddress', address.length > 5);
+    const pincodeOk = validateField('custPincode', /^\d{6}$/.test(pincode));
+
+    if (!(nameOk && phoneOk && addressOk && pincodeOk)) return;
+
+    const entries = Object.entries(cart).filter(([,q]) => q > 0);
+    const total = cartSubtotal();
+
+    function sendWhatsapp(extraLine){
+      let msg = "Hi Dhaaga! Naya order:%0A%0A";
+      entries.forEach(([id,q]) => {
+        const p = products.find(x => x.id == id);
+        if (p) msg += `${p.name} x${q} — ₹${(p.price*q).toLocaleString('en-IN')}%0A`;
+      });
+      msg += `%0ATotal: ₹${total.toLocaleString('en-IN')}`;
+      msg += `%0APayment: ${extraLine}`;
+      msg += `%0A%0AName: ${name}%0APhone: ${phone}%0AAddress: ${address}%0APincode: ${pincode}`;
+      window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`, '_blank');
+    }
+
+    if (payMethod === 'cod'){
+      sendWhatsapp('Cash on Delivery');
+      showConfirmView(payMethod);
+      return;
+    }
+
+    if (payMethod === 'upi'){
+      const upiUrl = `upi://pay?pa=${encodeURIComponent(UPI_VPA)}&pn=${encodeURIComponent(UPI_PAYEE_NAME)}&am=${total}&cu=INR&tn=${encodeURIComponent('Dhaaga Order - ' + name)}`;
+      window.location.href = upiUrl;
+      sendWhatsapp('UPI (online)');
+      showConfirmView(payMethod);
+      return;
+    }
+
+    if (payMethod === 'razorpay'){
+      const placeBtn = document.getElementById('placeOrderBtn');
+      placeBtn.textContent = 'Processing...';
+      placeBtn.disabled = true;
+      try {
+        const cfgRes = await fetch('/api/config');
+        const cfg = await cfgRes.json();
+
+        const orderRes = await fetch('/api/create-order', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ amount: total })
+        });
+        const order = await orderRes.json();
+        if (!order.id) throw new Error('Order creation failed');
+
+        const rzp = new Razorpay({
+          key: cfg.keyId,
+          amount: order.amount,
+          currency: 'INR',
+          name: 'Dhaaga',
+          description: 'Order Payment',
+          order_id: order.id,
+          prefill: { name, contact: phone },
+          theme: { color: '#1E4A46' },
+          handler: async function(response){
+            const verifyRes = await fetch('/api/verify-payment', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(response)
+            });
+            const verify = await verifyRes.json();
+            placeBtn.textContent = 'Order Place Karo';
+            placeBtn.disabled = false;
+            if (verify.valid){
+              sendWhatsapp(`Paid Online (Razorpay) — Payment ID: ${response.razorpay_payment_id}`);
+              showConfirmView(payMethod);
+            } else {
+              alert('Payment verify nahi ho paya. Please dobara try karein ya humein WhatsApp par contact karein.');
+            }
+          },
+          modal: {
+            ondismiss: function(){
+              placeBtn.textContent = 'Order Place Karo';
+              placeBtn.disabled = false;
+            }
+          }
+        });
+        rzp.open();
+      } catch (e) {
+        placeBtn.textContent = 'Order Place Karo';
+        placeBtn.disabled = false;
+        alert('Kuch gadbad ho gayi. Please dobara try karein.');
+      }
+    }
+  }
+
+  document.getElementById('checkoutBtn').onclick = function(){
+    const entries = Object.entries(cart).filter(([,q]) => q > 0);
+    if (entries.length === 0) return;
+    showCheckoutView();
+  };
+
+  window.dhaaga = {
+    add(id){ cart[id] = (cart[id]||0) + 1; saveCart(); renderCart(); },
+    dec(id){ if (cart[id]>1) cart[id]--; else delete cart[id]; saveCart(); renderCart(); },
+    remove(id){ delete cart[id]; saveCart(); renderCart(); }
+  };
+
+  renderCats();
+  renderGrid();
+  renderCart();
+})();
+</script>
+
+</body>
+</html>
